@@ -12,7 +12,7 @@ jobs:
         #   echo "${{toJson(github)}}"
         #   git clone https://github.com/${{github.repository}}.git
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "18"
       - name: print node version
@@ -21,3 +21,19 @@ jobs:
         run: npm ci
       - name: run tests
         run: npm run test
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+        uses: actions/checkout@v4
+      - name: Install Node 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Project
+        run: npm run build
+      - name: Deploy
+        run: echo "Deploying..."
