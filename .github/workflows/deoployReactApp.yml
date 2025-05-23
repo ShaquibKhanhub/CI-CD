@@ -58,7 +58,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4 
         with:
-          name: dist-folder
+          name: github-pages
           path: dist
   deploy:
     needs: build
@@ -77,5 +77,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
-
+        uses: actions/deploy-pages@v4 #
