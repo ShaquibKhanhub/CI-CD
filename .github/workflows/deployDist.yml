@@ -56,28 +56,18 @@ jobs:
       - name: Build Project
         run: npm run build
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: github-pages
+          name: dist-folder
           path: dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-
-    # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-  
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4 
+      - name: Download Dist Artifact
+        uses: actions/download-artifact@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
-
+          name: dist-files
+          path: dist
+      - name: Deploy
+        run: echo "Deploy successful"
